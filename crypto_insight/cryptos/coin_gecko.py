@@ -9,3 +9,10 @@ def buscar_dados_criptomoedas():
         'page': 1,
         'sparkline': False,
     }
+
+    resposta = requests.get(url_api, params=parametros)
+
+    if resposta.status_code == 200:
+        return resposta.json()
+    else:
+        return None
