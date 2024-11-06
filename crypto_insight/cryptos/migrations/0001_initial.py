@@ -7,18 +7,31 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Crypto',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('nome', models.CharField(max_length=100)),
                 ('simbolo', models.CharField(max_length=100)),
-                ('preco', models.DecimalField(decimal_places=8, max_digits=20)),
-                ('volume', models.DecimalField(decimal_places=8, max_digits=20)),
+                (
+                    'preco',
+                    models.DecimalField(decimal_places=8, max_digits=20),
+                ),
+                (
+                    'volume',
+                    models.DecimalField(decimal_places=8, max_digits=20),
+                ),
             ],
         ),
     ]
