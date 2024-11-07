@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .coin_gecko import buscar_dados_criptomoedas
+from .coin_gecko import buscar_dados_criptomoedas, CoinGeckoAPI
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes, api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -82,3 +82,20 @@ class RemoverFavoritoView(APIView):
                 {'detail': 'Favorito não encontrado.'},
                 status=status.HTTP_404_NOT_FOUND,
             )
+
+@api_view(['GET'])
+def moeda_detalhes(request, moeda_id):
+    api = CoinGeckoAPI()
+    dados = api.get_coin_details(moeda_id)
+    if dados:
+        resultado = {
+            "nome": dados.get("name"),
+            "preco_atual": dados["market_data"]["current_price"]["brl"],
+            "variacao_percentual_1d": dados["market_data"]["price_change_percentage_24h"],
+            "variacao_percentual_7d": dados["market_data"]["price_change_percentage_7d"],
+            "variacao_percentual_1m": dados["market_data"]["price_change_percentage_30d"],
+            "capitalizacao_mercado": dados["market_data"]["market_cap"]["brl"],
+            "volume_24h": dados["market_data"]["total_volume"]["brl"]
+        }
+        return Response(resultado)
+    return Response({"detail": "Moeda não encontrada."}, status=404)
