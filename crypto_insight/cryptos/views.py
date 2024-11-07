@@ -10,15 +10,15 @@ from rest_framework.authtoken.models import Token
 from .models import Favorito
 from rest_framework.exceptions import ValidationError
 
-
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def listar_criptomoedas(request):
     dados = buscar_dados_criptomoedas()
     if dados is not None:
-        return JsonResponse(dados, safe=False)
+        return Response(dados)
     else:
-        return JsonResponse(
-            {'erro': 'Falha ao buscar dados da API'}, status=500
+        return Response(
+            {'erro': 'Falha ao buscar dados da API'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
 
@@ -83,7 +83,9 @@ class RemoverFavoritoView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def moeda_detalhes(request, moeda_id):
     api = CoinGeckoAPI()
     dados = api.get_detalhes_moedas(moeda_id)
@@ -98,17 +100,19 @@ def moeda_detalhes(request, moeda_id):
             "volume_24h": dados["market_data"]["total_volume"]["brl"]
         }
         return Response(resultado)
-    return Response({"detail": "Moeda não encontrada."}, status=404)
+    return Response({"detail": "Moeda não encontrada."}, status=status.HTTP_404_NOT_FOUND)
+
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def moeda_historico(request, moeda_id):
-    intervalo = request.query_params.get('interval', '7d')  # Padrão para 7 dias
+    intervalo = request.query_params.get('interval', '7d')
     api = CoinGeckoAPI()
     historico = api.get_historico_de_preco(moeda_id, intervalo)
     if historico:
-        # Retornando apenas os dados necessários para o gráfico
+
         resultado = {
-            "precos": historico["prices"]  # [timestamp, preço]
+            "precos": historico["prices"]
         }
         return Response(resultado)
-    return Response({"detail": "Histórico de preços não encontrado."}, status=404)
+    return Response({"detail": "Histórico de preços não encontrado."}, status=status.HTTP_404_NOT_FOUND)
