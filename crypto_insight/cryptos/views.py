@@ -99,3 +99,16 @@ def moeda_detalhes(request, moeda_id):
         }
         return Response(resultado)
     return Response({"detail": "Moeda não encontrada."}, status=404)
+
+@api_view(['GET'])
+def moeda_historico(request, moeda_id):
+    intervalo = request.query_params.get('interval', '7d')  # Padrão para 7 dias
+    api = CoinGeckoAPI()
+    historico = api.get_historico_de_preco(moeda_id, intervalo)
+    if historico:
+        # Retornando apenas os dados necessários para o gráfico
+        resultado = {
+            "precos": historico["prices"]  # [timestamp, preço]
+        }
+        return Response(resultado)
+    return Response({"detail": "Histórico de preços não encontrado."}, status=404)
