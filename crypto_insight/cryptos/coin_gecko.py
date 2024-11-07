@@ -17,3 +17,20 @@ def buscar_dados_criptomoedas():
         return resposta.json()
     else:
         return None
+
+class CoinGeckoAPI:
+    def __init__(self):
+        self.base_url = "https://api.coingecko.com/api/v3"
+
+    def get_coin_details(self, coin_id):
+        url = f"{self.base_url}/coins/{coin_id}"
+        params = {
+            "localization": "false",
+            "tickers": "false",
+            "market_data": "true",
+            "community_data": "false",
+            "developer_data": "false",
+            "sparkline": "false"
+        }
+        response = requests.get(url, params=params)
+        return response.json() if response.status_code == 200 else None
