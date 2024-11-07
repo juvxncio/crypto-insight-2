@@ -86,7 +86,7 @@ class RemoverFavoritoView(APIView):
 @api_view(['GET'])
 def moeda_detalhes(request, moeda_id):
     api = CoinGeckoAPI()
-    dados = api.get_coin_details(moeda_id)
+    dados = api.get_detalhes_moedas(moeda_id)
     if dados:
         resultado = {
             "nome": dados.get("name"),
