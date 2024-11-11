@@ -1,5 +1,5 @@
 {
-  "name": "crypto_insight",
+  "name": "crypto_insight_front",
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
   "scripts": {
@@ -15,7 +15,9 @@
     "react-native": "0.74.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.45",
+    "typescript": "^5.1.3"
   },
   "private": true
 }

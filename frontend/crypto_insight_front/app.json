@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "crypto_insight",
-    "slug": "crypto_insight",
+    "name": "crypto_insight_front",
+    "slug": "crypto_insight_front",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
