@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, Image, TextInputProps, StyleSheet } from "react-native";
+import { View, TextInput, Image, TextInputProps } from "react-native";
 import { styles } from "./styles";
 
 interface InputFieldProps extends TextInputProps {
@@ -9,7 +9,7 @@ interface InputFieldProps extends TextInputProps {
   placeholder: string;
 }
 
-export function InputField({ icon, value, onChangeText, placeholder, ...rest }: InputFieldProps) {
+export function InputFieldLogin({ icon, value, onChangeText, placeholder, ...rest }: InputFieldProps) {
   return (
     <View style={styles.container}>
       <TextInput
