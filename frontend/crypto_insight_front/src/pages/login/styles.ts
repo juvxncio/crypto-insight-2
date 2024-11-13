@@ -38,5 +38,15 @@ export const style = StyleSheet.create({
     textBottom:{
         fontSize:16,
         color:themas.colors.gray,
+    },
+    textBottomRegister:{
+        fontSize:16,
+        color:themas.colors.primary,
+    },
+    boxRegisterText:{
+        width:'100%',
+        flexDirection:'row',
+        justifyContent:'center',
+        marginTop:-40
     }
 })
