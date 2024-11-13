@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import {Text, View, Image, TextInput, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
 import { style } from "./styles";
 import Logo from '../../assets/logo.png'
 import Arroba from '../../assets/arroba.png'
 import Cadeado from '../../assets/cadeado.png'
-import { themas } from "../../global/themes";
-import { InputFieldLogin } from "../../components/inputLogin";
-import { Button } from "../../components/button";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { InputFieldRegister } from "../../components/inputRegister";
 import Usuario from '../../assets/usuario.png'
+import CadeadoConfirm from '../../assets/confirmsenha.png'
+import { Button } from "../../components/button";
+import { InputFieldRegister } from "../../components/inputRegister";
 
 export default function Register() {
 
@@ -46,7 +44,7 @@ export default function Register() {
                     // onChangeText={setEmail}
                 />
                 <InputFieldRegister
-                    icon={Cadeado}
+                    icon={CadeadoConfirm}
                     label="Confirmação de Senha"
                     placeholder="Confirme a senha"
                     // value={username}
