@@ -70,7 +70,7 @@ export default function Login() {
             </View>
             <View style={style.boxRegisterText}>
                 <Text style={style.textBottom}>Ainda não possui uma conta?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                     <Text style={style.textBottomRegister}> Cadastre-se</Text>
                 </TouchableOpacity>
             </View>
