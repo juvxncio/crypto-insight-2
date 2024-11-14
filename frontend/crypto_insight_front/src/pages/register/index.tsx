@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, Image, TextInput, TouchableOpacity, Alert, ActivityIndicator} from 'react-native';
+import {Text, View, Image } from 'react-native';
 import { style } from "./styles";
 import Logo from '../../assets/logo.png'
 import Arroba from '../../assets/arroba.png'
@@ -8,8 +8,10 @@ import Usuario from '../../assets/usuario.png'
 import CadeadoConfirm from '../../assets/confirmsenha.png'
 import { Button } from "../../components/button";
 import { InputFieldRegister } from "../../components/inputRegister";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 export default function Register() {
+    const navigation = useNavigation<NavigationProp<any>>();
 
     return(
         <View style={style.container}>
@@ -52,9 +54,7 @@ export default function Register() {
                 />
             </View>
             <View style={style.boxBottom}>
-                <Button title="Cadastrar" onPress={function (): void {
-                    throw new Error("Function not implemented.");
-                } } loading={false}/>
+                <Button title="Cadastrar" onPress={() => navigation.navigate('Login')} loading={false}/>
             </View>
         </View>
     )
