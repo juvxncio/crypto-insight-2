@@ -139,3 +139,15 @@ def moeda_historico(request, moeda_id):
         }
         return Response(resultado)
     return Response({"detail": "Histórico de preços não encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_profile(request):
+    if request.user.is_authenticated:
+        user = request.user
+        return Response({
+            "username": user.username,
+            "email": user.email
+        })
+    else:
+        return Response({"error": "User not authenticated"}, status=401)

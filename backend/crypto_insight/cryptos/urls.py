@@ -13,4 +13,5 @@ urlpatterns = [
     ),
     path("cryptos/<str:moeda_id>/", views.moeda_detalhes, name="moeda_detalhes"),
     path("cryptos/<str:moeda_id>/history/", views.moeda_historico, name="moeda_historico"),
+    path('user/profile/', views.user_profile, name='user_profile'),
 ]
