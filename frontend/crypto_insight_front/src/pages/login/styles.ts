@@ -18,7 +18,9 @@ export const style = StyleSheet.create({
     boxMid:{
         height: Dimensions.get('window').height/4,
         width:'100%',
-        paddingHorizontal:37
+        paddingHorizontal:37,
+        marginBottom:15
+        
     },
     boxBottom:{
         height: Dimensions.get('window').height/3,
