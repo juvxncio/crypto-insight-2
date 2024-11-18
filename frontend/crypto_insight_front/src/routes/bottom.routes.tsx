@@ -1,8 +1,8 @@
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import List from '../pages/list';
 import User from '../pages/user';
 import CustomTabBar from '../components/CustomTabBar';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
