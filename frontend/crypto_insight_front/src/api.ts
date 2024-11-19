@@ -21,15 +21,35 @@ api.interceptors.request.use(async (config) => {
 export async function getUserProfile() {
   try {
     const token = await AsyncStorage.getItem("access_token");
-    const response = await api.get("/user/profile", {
+    console.log('Token:', token);
+    const response = await fetch("http://127.0.0.1:8000/api/user/profile", {
+      method: "GET",
       headers: {
-        Authorization: `Token ${token}`,
+        "Authorization": `Token ${token}`,
+        "Content-Type": "application/json",
       },
     });
-    return response.data;
+    const data = await response.json();
+    console.log('Perfil do usuário:', data);
+    return data;
   } catch (error) {
     console.error("Erro ao buscar perfil do usuário:", error);
     throw error;
+  }
+}
+
+export async function getCryptoList() {
+  try {
+      const token = await AsyncStorage.getItem("authToken"); // Certifique-se de que "authToken" é o nome correto
+      const response = await axios.get("http://192.168.0.21:8000/api/criptomoedas/", {
+          headers: {
+              Authorization: `Token ${token}`
+          }
+      });
+      return response.data;
+  } catch (error) {
+      console.error("Erro ao carregar lista de criptomoedas:", error);
+      throw error;
   }
 }
 
