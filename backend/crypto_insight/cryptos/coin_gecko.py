@@ -6,7 +6,7 @@ def buscar_dados_criptomoedas():
     params = {
         'vs_currency': 'brl',
         'order': 'market_cap_desc',
-        'per_page': 10,
+        'per_page': 250,
         'page': 1,
         'sparkline': False,
     }
