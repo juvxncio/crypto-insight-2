@@ -21,8 +21,7 @@ api.interceptors.request.use(async (config) => {
 export async function getUserProfile() {
   try {
     const token = await AsyncStorage.getItem("access_token");
-    console.log('Token:', token);
-    const response = await fetch("http://127.0.0.1:8000/api/user/profile", {
+    const response = await fetch("http://127.0.0.1:8000/api/user/profile/", {
       method: "GET",
       headers: {
         "Authorization": `Token ${token}`,
@@ -37,11 +36,10 @@ export async function getUserProfile() {
     throw error;
   }
 }
-
 export async function getCryptoList() {
   try {
-      const token = await AsyncStorage.getItem("authToken"); // Certifique-se de que "authToken" é o nome correto
-      const response = await axios.get("http://192.168.0.21:8000/api/criptomoedas/", {
+      const token = await AsyncStorage.getItem("access_token");
+      const response = await axios.get("http://127.0.0.1:8000/api/criptomoedas/", {
           headers: {
               Authorization: `Token ${token}`
           }
