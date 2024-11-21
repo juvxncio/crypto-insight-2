@@ -24,5 +24,33 @@ export const style = StyleSheet.create({
     boxList:{
         flex:1,
         width:'100%'
-    }
+    },
+    cryptoItem: {
+        flexDirection: "row",
+        alignItems: "center",
+        padding: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: "#eee",
+    },
+    cryptoIcon: {
+        width: 40,
+        height: 40,
+        marginRight: 10,
+    },
+    cryptoInfo: {
+        flex: 1,
+    },
+    cryptoName: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#333",
+    },
+    cryptoPrice: {
+        fontSize: 14,
+        color: "#666",
+    },
+    cryptoChange: {
+        fontSize: 14,
+        fontWeight: "bold",
+    },
 })
