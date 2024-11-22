@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Image, Text, View, FlatList } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Image, Text, View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import { style } from "./styles";
 import profilePicture from '../../assets/profilePicture2.png';
-import { getUserProfile, getUserFavorites } from "../../api";
+import botaoSair from '../../assets/botaoSair.png';
+import { getUserProfile, logoutUser } from "../../api";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 interface Crypto {
   id: string;
@@ -14,6 +16,10 @@ interface Crypto {
 export default function User() {
   const [username, setUsername] = useState<string | null>(null);
   const [favorites, setFavorites] = useState<Crypto[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const navigation = useNavigation<NavigationProp<any>>();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -21,8 +27,8 @@ export default function User() {
         const userData = await getUserProfile();
         setUsername(userData.username);
 
-        const favoriteCryptos = await getUserFavorites();
-        setFavorites(favoriteCryptos);
+        // const favoriteCryptos = await getUserFavorites(); // Se necessário, busque os favoritos
+        // setFavorites(favoriteCryptos);
       } catch (error) {
         console.error("Erro ao carregar dados do usuário:", error);
       }
@@ -30,6 +36,20 @@ export default function User() {
 
     fetchUserData();
   }, []);
+
+  async function handleLogout() {
+    setError("");
+    setLoading(true);
+    try {
+      await logoutUser();
+
+      setLoading(false);
+      navigation.navigate("Login");
+    } catch (error) {
+      setLoading(false);
+      setError("Erro ao realizar logout. Tente novamente.");
+    }
+  }
 
   const renderCrypto = ({ item }: { item: Crypto }) => (
     <View style={style.cryptoItem}>
@@ -40,14 +60,21 @@ export default function User() {
 
   return (
     <View style={style.container}>
-      <View style={style.header} />
-      <View style={style.profileContainer}>
-        <Image
-          source={profilePicture}
-          style={style.profileImage}
-        />
-        <Text style={style.username}>{username || "Usuário"}</Text>
+      <View style={style.header}>
+        <TouchableOpacity style={style.logoutButton} onPress={handleLogout}>
+          <Image source={botaoSair} style={style.logoutIcon} />
+        </TouchableOpacity>
       </View>
+
+      <View style={style.profileContainer}>
+        <Text style={style.username}>{username || "Usuário"}</Text>
+        <Image source={profilePicture} style={style.profileImage} />
+      </View>
+
+      {loading && <ActivityIndicator size="large" color="#0000ff" />}
+
+      {error && <Text style={style.errorMessage}>{error}</Text>}
+
       <View style={style.favoritesContainer}>
         <Text style={style.favoritesTitle}>Criptomoedas Favoritas</Text>
         <FlatList

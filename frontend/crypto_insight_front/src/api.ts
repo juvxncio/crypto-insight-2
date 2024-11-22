@@ -105,4 +105,25 @@ export async function getFavorites() {
   }
 }
 
+export async function logoutUser() {
+  try {
+    const token = await AsyncStorage.getItem("access_token");
+    const response = await axios.post(
+      "http://127.0.0.1:8000/api/logout/",
+      {},
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao fazer logout:", error);
+    throw error;
+  }
+}
+
+
 export default api;
