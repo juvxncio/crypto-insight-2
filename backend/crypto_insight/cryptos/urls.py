@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import listar_criptomoedas, FavoritarMoedaView, RemoverFavoritoView
+from .views import listar_criptomoedas, FavoritarMoedaView, RemoverFavoritoView, ListarFavoritosView
 from . import views
 
 urlpatterns = [
@@ -11,6 +11,7 @@ urlpatterns = [
         RemoverFavoritoView.as_view(),
         name='remover-favorito',
     ),
+    path('favoritos/', ListarFavoritosView.as_view(), name='listar-favoritos'),
     path("cryptos/<str:moeda_id>/", views.moeda_detalhes, name="moeda_detalhes"),
     path("cryptos/<str:moeda_id>/history/", views.moeda_historico, name="moeda_historico"),
     path('user/profile/', views.user_profile, name='user_profile'),

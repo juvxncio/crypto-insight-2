@@ -106,6 +106,21 @@ class RemoverFavoritoView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+class ListarFavoritosView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        favoritos = Favorito.objects.filter(usuario=request.user)
+        data = [
+            {
+                "moeda_id": favorito.moeda_id,
+                "nome_moeda": favorito.nome_moeda,
+                "simbolo": favorito.simbolo,
+            }
+            for favorito in favoritos
+        ]
+        return Response(data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

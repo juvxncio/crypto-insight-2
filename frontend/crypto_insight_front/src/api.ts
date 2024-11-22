@@ -51,4 +51,58 @@ export async function getCryptoList() {
   }
 }
 
+export async function favoritarMoeda(moeda_id: string, nome_moeda: string, simbolo: string) {
+  try {
+    const token = await AsyncStorage.getItem("access_token");
+    const response = await axios.post(
+      "http://127.0.0.1:8000/api/favoritar/",
+      { moeda_id, nome_moeda, simbolo },
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao favoritar moeda:", error);
+    throw error;
+  }
+}
+
+export async function removerFavorito(moeda_id: string) {
+  try {
+    const token = await AsyncStorage.getItem("access_token");
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/api/remover-favorito/${moeda_id}/`,
+      {
+        headers: {
+          Authorization: `Token ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao remover favorito:", error);
+    throw error;
+  }
+}
+
+export async function getFavorites() {
+  try {
+      const token = await AsyncStorage.getItem("access_token");
+      const response = await axios.get("http://127.0.0.1:8000/api/favoritos/", {
+          headers: {
+              Authorization: `Token ${token}`
+          }
+      });
+    return response.data;
+  } catch (error) {
+      console.error("Erro ao buscar favoritos:", error);
+      throw error;
+  }
+}
+
 export default api;
