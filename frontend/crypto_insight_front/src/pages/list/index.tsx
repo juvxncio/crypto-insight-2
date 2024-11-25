@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, FlatList, Image, TouchableOpacity } from "react-native";
-import { style } from "./styles";
-import { Input } from "../../components/inputHome";
-import { MaterialIcons } from "@expo/vector-icons";
-import { getUserProfile, getCryptoList } from "../../api";
-import { useFavorites } from "../../context/favoritesContext";
+import React, { useEffect, useState } from 'react';
+import { Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
+import { style } from './styles';
+import { Input } from '../../components/inputHome';
+import { MaterialIcons } from '@expo/vector-icons';
+import { getUserProfile, getCryptoList } from '../../api';
+import { useFavorites } from '../../context/favoritesContext';
 
 interface Crypto {
   id: string;
@@ -21,15 +21,15 @@ export default function List() {
   const [username, setUsername] = useState<string | null>(null);
   const [cryptos, setCryptos] = useState<Crypto[]>([]);
   const [filteredCryptos, setFilteredCryptos] = useState<Crypto[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    return hour >= 6 && hour < 12 ? "Bom dia" : hour < 18 ? "Boa tarde" : "Boa noite";
+    return hour >= 6 && hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
   };
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function List() {
         const data = await getUserProfile();
         setUsername(data.username);
       } catch (error) {
-        console.error("Erro ao carregar perfil do usuário:", error);
+        console.error('Erro ao carregar perfil do usuário:', error);
       }
     }
 
@@ -54,7 +54,7 @@ export default function List() {
         setCryptos(cryptoListWithFavorites);
         setFilteredCryptos(cryptoListWithFavorites);
       } catch (error) {
-        console.error("Erro ao carregar lista de criptomoedas:", error);
+        console.error('Erro ao carregar lista de criptomoedas:', error);
       }
     }
 
@@ -89,16 +89,16 @@ export default function List() {
         </View>
         <View style={style.cryptoPriceInfo}>
           <Text style={style.cryptoPrice}>{formatCurrency(item.current_price)}</Text>
-          <Text style={[style.cryptoChange, { color: isPositive ? "green" : "red" }]}>
-            {isPositive ? "▲" : "▼"} {Math.abs(item.price_change_percentage_24h).toFixed(2)}% (1d)
+          <Text style={[style.cryptoChange, { color: isPositive ? 'green' : 'red' }]}>
+            {isPositive ? '▲' : '▼'} {Math.abs(item.price_change_percentage_24h).toFixed(2)}% (1d)
           </Text>
         </View>
         <TouchableOpacity onPress={() => toggleFavorite(item)}>
           <Image
             source={
               item.isFavorite
-                ? require("../../assets/estrelaCheia.png")
-                : require("../../assets/estrelaVazia.png")
+                ? require('../../assets/estrelaCheia.png')
+                : require('../../assets/estrelaVazia.png')
             }
             style={style.favoriteIcon}
           />
@@ -111,12 +111,12 @@ export default function List() {
     <View style={style.container}>
       <View style={style.header}>
         <Text style={style.greeting}>
-          {getGreeting()}, <Text style={{ fontWeight: "bold" }}>{username || "Usuário"}</Text>
+          {getGreeting()}, <Text style={{ fontWeight: 'bold' }}>{username || 'Usuário'}</Text>
         </Text>
         <View style={style.boxInput}>
           <Input
             IconLeft={MaterialIcons}
-            iconLeftName="search"
+            iconLeftName='search'
             value={searchQuery}
             onChangeText={setSearchQuery}
           />

@@ -1,6 +1,6 @@
-import React from "react";
-import { View, TextInput, Image, TextInputProps } from "react-native";
-import { styles } from "./styles";
+import React from 'react';
+import { View, TextInput, Image, TextInputProps } from 'react-native';
+import { styles } from './styles';
 
 interface InputFieldProps extends TextInputProps {
   icon?: any;
@@ -16,7 +16,7 @@ export function InputFieldRegister({ icon, value, label, onChangeText, placehold
       <TextInput
         style={styles.input}
         placeholder={placeholder}
-        placeholderTextColor="#A3A3A3"
+        placeholderTextColor='#A3A3A3'
         value={value}
         onChangeText={onChangeText}
         {...rest}

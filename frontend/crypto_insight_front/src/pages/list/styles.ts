@@ -1,36 +1,36 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { themas } from "../../global/themes";
+import { StyleSheet, Dimensions } from 'react-native';
+import { themas } from '../../global/themes';
 
 export const style = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
+        alignItems: 'center',
     },
     header: {
-        width: "100%",
-        height: Dimensions.get("window").height / 6,
+        width: '100%',
+        height: Dimensions.get('window').height / 6,
         backgroundColor: themas.colors.primary,
         paddingHorizontal: 20,
-        justifyContent: "center",
+        justifyContent: 'center',
     },
     greeting: {
         fontSize: 20,
-        color: "#FFF",
+        color: '#FFF',
         marginTop: 20,
     },
     boxInput: {
-        width: "80%",
+        width: '80%',
     },
     boxList: {
         flex: 1,
-        width: "100%",
+        width: '100%',
     },
     cryptoItem: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         padding: 15,
         borderBottomWidth: 1,
-        borderBottomColor: "#eee",
+        borderBottomColor: '#eee',
     },
     cryptoIcon: {
         width: 40,
@@ -42,21 +42,21 @@ export const style = StyleSheet.create({
     },
     cryptoName: {
         fontSize: 14,
-        fontWeight: "bold",
-        color: "#333",
+        fontWeight: 'bold',
+        color: '#333',
     },
     cryptoSymbol: {
         fontSize: 12,
-        color: "#666",
+        color: '#666',
     },
     cryptoPriceInfo: {
-        alignItems: "flex-end",
+        alignItems: 'flex-end',
         marginRight: 10,
     },
     cryptoPrice: {
         fontSize: 14,
-        fontWeight: "bold",
-        color: "#333",
+        fontWeight: 'bold',
+        color: '#333',
     },
     cryptoChange: {
         fontSize: 12,
