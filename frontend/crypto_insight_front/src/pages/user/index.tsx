@@ -1,60 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, View, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
 import { style } from "./styles";
-import profilePicture from '../../assets/profilePicture2.png';
-import botaoSair from '../../assets/botaoSair.png';
 import { getUserProfile, logoutUser } from "../../api";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-
-interface Crypto {
-  id: string;
-  name: string;
-  symbol: string;
-  price: number;
-}
+import { useFavorites } from "../../context/favoritesContext";
+import profilePicture from "../../assets/profilePicture2.png";
+import logoutIcon from "../../assets/botaoSair.png";
 
 export default function User() {
   const [username, setUsername] = useState<string | null>(null);
-  const [favorites, setFavorites] = useState<Crypto[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
+  const [error, setError] = useState<string | null>(null);
+  const { favorites } = useFavorites();
   const navigation = useNavigation<NavigationProp<any>>();
 
   useEffect(() => {
-    async function fetchUserData() {
+    async function fetchUserProfile() {
       try {
-        const userData = await getUserProfile();
-        setUsername(userData.username);
-
-        // const favoriteCryptos = await getUserFavorites(); // Se necessário, busque os favoritos
-        // setFavorites(favoriteCryptos);
+        const data = await getUserProfile();
+        setUsername(data.username);
       } catch (error) {
-        console.error("Erro ao carregar dados do usuário:", error);
+        console.error("Erro ao carregar perfil do usuário:", error);
       }
     }
 
-    fetchUserData();
+    fetchUserProfile();
   }, []);
 
   async function handleLogout() {
-    setError("");
+    setError(null);
     setLoading(true);
     try {
       await logoutUser();
-
       setLoading(false);
       navigation.navigate("Login");
-    } catch (error) {
+    } catch (err) {
       setLoading(false);
       setError("Erro ao realizar logout. Tente novamente.");
+      console.error("Erro no logout:", err);
     }
   }
 
-  const renderCrypto = ({ item }: { item: Crypto }) => (
+  const renderCrypto = ({ item }: { item: { name: string; symbol: string } }) => (
     <View style={style.cryptoItem}>
-      <Text style={style.cryptoName}>{item.name} ({item.symbol.toUpperCase()})</Text>
-      <Text style={style.cryptoPrice}>${item.price.toFixed(2)}</Text>
+      <Text style={style.cryptoName}>
+        {item.name} ({item.symbol.toUpperCase()})
+      </Text>
     </View>
   );
 
@@ -62,12 +53,14 @@ export default function User() {
     <View style={style.container}>
       <View style={style.header}>
         <TouchableOpacity style={style.logoutButton} onPress={handleLogout}>
-          <Image source={botaoSair} style={style.logoutIcon} />
+          <Image source={logoutIcon} style={style.logoutIcon} />
         </TouchableOpacity>
+        <Text style={style.username}>
+          {username ? `${username}` : "Usuário"}
+        </Text>
       </View>
 
       <View style={style.profileContainer}>
-        <Text style={style.username}>{username || "Usuário"}</Text>
         <Image source={profilePicture} style={style.profileImage} />
       </View>
 
@@ -81,7 +74,7 @@ export default function User() {
           data={favorites}
           keyExtractor={(item) => item.id}
           renderItem={renderCrypto}
-          ListEmptyComponent={<Text style={style.emptyText}>Nenhuma criptomoeda favorita.</Text>}
+          ListEmptyComponent={<Text style={style.emptyText}>Nenhuma moeda favorita.</Text>}
         />
       </View>
     </View>

@@ -1,19 +1,21 @@
-import { StyleSheet } from "react-native";
-import { themas } from "../../global/themes";
+import { StyleSheet } from 'react-native';
+import { themas } from '../../global/themes';
 
 export const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
   header: {
-    width: "100%",
+    width: '100%',
     height: 250,
     backgroundColor: themas.colors.primary,
-    position: "relative",
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
   },
   logoutButton: {
-    position: "absolute",
+    position: 'absolute',
     top: 40,
     right: 20,
     zIndex: 10,
@@ -23,8 +25,8 @@ export const style = StyleSheet.create({
     height: 30,
   },
   profileContainer: {
-    alignItems: "center",
-    marginTop: -150,
+    alignItems: 'center',
+    marginTop: -140,
   },
   profileImage: {
     width: 200,
@@ -35,52 +37,47 @@ export const style = StyleSheet.create({
   },
   username: {
     fontSize: 30,
-    fontWeight: "bold",
-    color: "#FFF",
-    position: "absolute",
-    top: -50,
-    zIndex: 1,
+    fontWeight: 'bold',
+    color: '#FFF',
+    textAlign: 'center',
+    top: -50
   },
   favoritesContainer: {
     flex: 1,
-    width: "100%",
+    width: '100%',
     padding: 20,
-    alignItems: "center",
+    alignItems: 'center',
   },
   favoritesTitle: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 10,
-    color: "#333",
-    textAlign: "center",
+    color: '#333',
+    textAlign: 'center',
+  },
+  emptyText: {
+    textAlign: 'center',
+    color: '#999',
+    marginTop: 20,
   },
   cryptoItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     padding: 15,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: '#f9f9f9',
     marginBottom: 10,
     borderRadius: 10,
-    width: "100%",
+    width: '100%',
   },
   cryptoName: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  cryptoPrice: {
-    fontSize: 16,
-    color: "#666",
-  },
-  emptyText: {
-    textAlign: "center",
-    color: "#999",
-    marginTop: 20,
+    fontWeight: 'bold',
+    color: '#333',
   },
   errorMessage: {
-    color: "red",
+    color: 'red',
     fontSize: 16,
     marginTop: 20,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
