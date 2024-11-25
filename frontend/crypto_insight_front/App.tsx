@@ -1,19 +1,15 @@
-import { StyleSheet } from 'react-native';
+import React from 'react';
 import './gesture-handler';
 import Routes from './src/routes/index.routes';
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
+import { FavoritesProvider } from './src/context/favoritesContext';
 
 export default function App() {
   return (
+    <FavoritesProvider>
       <NavigationContainer>
-        <Routes/>
+        <Routes />
       </NavigationContainer>
+    </FavoritesProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
