@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: themas.colors.primary,
     borderRadius: 10,
-    marginTop: -40,
+    marginTop: -70,
   },
   textButton: {
     fontSize: 16,
