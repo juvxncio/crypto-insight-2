@@ -49,6 +49,6 @@ export const style = StyleSheet.create({
         width:'100%',
         flexDirection:'row',
         justifyContent:'center',
-        marginTop:-40
+        marginTop:-100
     }
 })
