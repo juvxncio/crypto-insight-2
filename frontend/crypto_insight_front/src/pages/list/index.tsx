@@ -32,6 +32,13 @@ export default function List() {
     }
   };
 
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
+
   useEffect(() => {
     async function fetchUserProfile() {
       try {
@@ -45,7 +52,7 @@ export default function List() {
     async function fetchCryptoList() {
       try {
         const cryptoData = await getCryptoList();
-        const favoritos = await getFavorites(); // Buscando favoritos do backend
+        const favoritos = await getFavorites();
 
         const cryptoListWithFavorites = cryptoData.map((crypto: Crypto) => ({
           ...crypto,
@@ -103,7 +110,7 @@ export default function List() {
           <Text style={style.cryptoSymbol}>{item.symbol.toUpperCase()}</Text>
         </View>
         <View style={style.cryptoPriceInfo}>
-          <Text style={style.cryptoPrice}>R$ {item.current_price.toFixed(2)}</Text>
+          <Text style={style.cryptoPrice}>{formatCurrency(item.current_price)}</Text>
           <Text style={[style.cryptoChange, { color: isPositive ? "green" : "red" }]}>
             {isPositive ? "▲" : "▼"} {Math.abs(item.price_change_percentage_7d_in_currency).toFixed(2)}% (7d)
           </Text>
