@@ -12,6 +12,7 @@ from rest_framework.authtoken.models import Token
 from .models import Favorito
 from rest_framework.exceptions import ValidationError
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def listar_criptomoedas(request):
@@ -20,16 +21,21 @@ def listar_criptomoedas(request):
         return Response(dados)
     else:
         return Response(
-            {'erro': 'Falha ao buscar dados da API'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            {'erro': 'Falha ao buscar dados da API'},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
 
 class LoginView(APIView):
     def post(self, request, *args, **kwargs):
-        email = request.data.get("email")
-        password = request.data.get("password")
+        email = request.data.get('email')
+        password = request.data.get('password')
 
         if not email or not password:
-            return Response({"detail": "Email e senha são obrigatórios."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'detail': 'Email e senha são obrigatórios.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         user = authenticate(request, username=email, password=password)
 
@@ -37,12 +43,18 @@ class LoginView(APIView):
             refresh = RefreshToken.for_user(user)
             access_token = refresh.access_token
 
-            return Response({
-                "access_token": str(access_token),
-                "refresh_token": str(refresh),
-            }, status=status.HTTP_200_OK)
+            return Response(
+                {
+                    'access_token': str(access_token),
+                    'refresh_token': str(refresh),
+                },
+                status=status.HTTP_200_OK,
+            )
 
-        return Response({"detail": "Credenciais inválidas."}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {'detail': 'Credenciais inválidas.'},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 class LogoutView(APIView):
@@ -106,6 +118,7 @@ class RemoverFavoritoView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+
 class ListarFavoritosView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -113,9 +126,9 @@ class ListarFavoritosView(APIView):
         favoritos = Favorito.objects.filter(usuario=request.user)
         data = [
             {
-                "moeda_id": favorito.moeda_id,
-                "nome_moeda": favorito.nome_moeda,
-                "simbolo": favorito.simbolo,
+                'moeda_id': favorito.moeda_id,
+                'nome_moeda': favorito.nome_moeda,
+                'simbolo': favorito.simbolo,
             }
             for favorito in favoritos
         ]
@@ -129,16 +142,24 @@ def moeda_detalhes(request, moeda_id):
     dados = api.get_detalhes_moedas(moeda_id)
     if dados:
         resultado = {
-            "nome": dados.get("name"),
-            "preco_atual": dados["market_data"]["current_price"]["brl"],
-            "variacao_percentual_1d": dados["market_data"]["price_change_percentage_24h"],
-            "variacao_percentual_7d": dados["market_data"]["price_change_percentage_7d"],
-            "variacao_percentual_1m": dados["market_data"]["price_change_percentage_30d"],
-            "capitalizacao_mercado": dados["market_data"]["market_cap"]["brl"],
-            "volume_24h": dados["market_data"]["total_volume"]["brl"]
+            'nome': dados.get('name'),
+            'preco_atual': dados['market_data']['current_price']['brl'],
+            'variacao_percentual_1d': dados['market_data'][
+                'price_change_percentage_24h'
+            ],
+            'variacao_percentual_7d': dados['market_data'][
+                'price_change_percentage_7d'
+            ],
+            'variacao_percentual_1m': dados['market_data'][
+                'price_change_percentage_30d'
+            ],
+            'capitalizacao_mercado': dados['market_data']['market_cap']['brl'],
+            'volume_24h': dados['market_data']['total_volume']['brl'],
         }
         return Response(resultado)
-    return Response({"detail": "Moeda não encontrada."}, status=status.HTTP_404_NOT_FOUND)
+    return Response(
+        {'detail': 'Moeda não encontrada.'}, status=status.HTTP_404_NOT_FOUND
+    )
 
 
 @api_view(['GET'])
@@ -149,20 +170,19 @@ def moeda_historico(request, moeda_id):
     historico = api.get_historico_de_preco(moeda_id, intervalo)
     if historico:
 
-        resultado = {
-            "precos": historico["prices"]
-        }
+        resultado = {'precos': historico['prices']}
         return Response(resultado)
-    return Response({"detail": "Histórico de preços não encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    return Response(
+        {'detail': 'Histórico de preços não encontrado.'},
+        status=status.HTTP_404_NOT_FOUND,
+    )
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_profile(request):
     if request.user.is_authenticated:
         user = request.user
-        return Response({
-            "username": user.username,
-            "email": user.email
-        })
+        return Response({'username': user.username, 'email': user.email})
     else:
-        return Response({"error": "User not authenticated"}, status=401)
+        return Response({'error': 'User not authenticated'}, status=401)

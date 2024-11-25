@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext } from 'react';
 
 interface Crypto {
   id: string;
@@ -35,7 +35,7 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 export const useFavorites = (): FavoritesContextData => {
   const context = useContext(FavoritesContext);
   if (!context) {
-    throw new Error("useFavorites precisa ser usado dentro de um FavoritesProvider");
+    throw new Error('useFavorites precisa ser usado dentro de um FavoritesProvider');
   }
   return context;
 };
